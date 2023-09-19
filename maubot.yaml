@@ -1,0 +1,8 @@
+id: eu.sergevictor.hateheif
+version: 0.99.99
+license: MIT
+modules:
+- hateheif
+main_class: HateHeifBot
+dependencies:
+- pillow-heif
