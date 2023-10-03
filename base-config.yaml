@@ -1,0 +1,2 @@
+# If not empty, bot will serve only rooms on the list
+rooms: []

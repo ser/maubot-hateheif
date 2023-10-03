@@ -3,12 +3,19 @@ from io import BytesIO
 from typing import Tuple
 from PIL import Image
 from pillow_heif import HeifImagePlugin
+from typing import Type
 
 from maubot import Plugin, MessageEvent
 from maubot.handlers import command
 from mautrix.client import Client as MatrixClient
 from mautrix.crypto import attachments
 from mautrix.types import EncryptedFile, ImageInfo, MediaMessageEventContent, MessageType
+from mautrix.util.config import BaseProxyConfig, ConfigUpdateHelper
+
+class Config(BaseProxyConfig):
+    def do_update(self, helper: ConfigUpdateHelper) -> None:
+        helper.copy("rooms")
+
 
 
 async def download_encrypted_media(
@@ -108,6 +115,13 @@ async def send_unencrypted_message(
 
 # BOT
 class HateHeifBot(Plugin):
+
+    async def start(self) -> None:
+        await super().start()
+        self.config.load_and_update()
+        self.rooms = self.config['rooms'] if self.config['rooms'] else None
+
+
     @command.passive("", msgtypes=(MessageType.IMAGE,))
     async def hate_heif_message(
             self,
@@ -116,6 +130,12 @@ class HateHeifBot(Plugin):
         """
         If heif = make it jpg.
         """
+        # If there are rooms specified in config, serve only these rooms
+        if self.rooms:
+            if evt.room_id not in self.rooms:
+                self.log.debug(f"Current room {evt.room_id} is not listed in {self.rooms} so I ignore it.")
+                return
+
         # Double check if it is an image message
         if evt.content.msgtype != MessageType.IMAGE:
             return
@@ -161,5 +181,8 @@ class HateHeifBot(Plugin):
                     content.info,
                     evt.client
             )
+    @classmethod
+    def get_config_class(cls) -> Type[BaseProxyConfig]:
+        return Config
 
 # the end.

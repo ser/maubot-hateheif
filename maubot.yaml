@@ -1,8 +1,11 @@
 id: eu.sergevictor.hateheif
-version: 0.99.99
+version: 0.99.100
 license: MIT
 modules:
 - hateheif
+config: true
+extra_files:
+- base-config.yaml
 main_class: HateHeifBot
 dependencies:
 - pillow-heif
