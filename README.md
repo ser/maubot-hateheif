@@ -6,4 +6,8 @@ to the room.
 - Works well in encrypted and unencrypted rooms. 
 - Requires no configuration, plug & play!
 
+## Support
+Join ```#maubot:sergevictor.eu``` room.
+
+## License
 MIT License.
