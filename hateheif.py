@@ -149,6 +149,7 @@ class HateHeifBot(Plugin):
 
         if content.url:  # content.url exists. File is not encrypted.
             data = await download_unencrypted_media(content.url, evt.client)
+            is_enc = False
         elif content.file:  # content.file exists. File is encrypted.
             data = await download_encrypted_media(content.file, evt.client)
             is_enc = True
