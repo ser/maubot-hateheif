@@ -122,7 +122,7 @@ class HateHeifBot(Plugin):
         self.rooms = self.config['rooms'] if self.config['rooms'] else None
 
 
-    @command.passive("", msgtypes=(MessageType.IMAGE,))
+    @command.passive("", msgtypes=(MessageType.IMAGE,MessageType.FILE))
     async def hate_heif_message(
             self,
             evt: MessageEvent,
@@ -137,7 +137,7 @@ class HateHeifBot(Plugin):
                 return
 
         # Double check if it is an image message
-        if evt.content.msgtype != MessageType.IMAGE:
+        if evt.content.msgtype != MessageType.IMAGE and evt.content.msgtype != MessageType.FILE:
             return
 
         content: MediaMessageEventContent = evt.content
@@ -165,6 +165,8 @@ class HateHeifBot(Plugin):
             img = img_out.getvalue()
         img_tst = Image.open(BytesIO(img))
         self.log.debug(f"Created image parameters: {img_tst.format} {img_tst.size} {img_tst.mode}")
+        content.info.width=img_tst.size[0]
+        content.info.height=img_tst.size[1]
 
         if is_enc:
             img_enc = attachments.encrypt_attachment(img)
