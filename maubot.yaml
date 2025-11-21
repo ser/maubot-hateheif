@@ -1,5 +1,6 @@
 id: eu.sergevictor.hateheif
-version: 0.99.100
+version: 1.0.0
+maubot: 0.5.1
 license: MIT
 modules:
 - hateheif

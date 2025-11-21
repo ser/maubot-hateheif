@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2023-2025 ᎠᎡ. Ѕϵrgϵ Ѵictor
 
 from io import BytesIO
 from typing import Tuple
