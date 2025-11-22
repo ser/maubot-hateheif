@@ -6,6 +6,8 @@ to the room.
 - Works well in encrypted and unencrypted rooms. 
 - Requires no configuration, plug & play!
 
+There is also a better, improved version of this bot here: https://git.serialexperiments.club/lain/maubot-heic2jpeg
+
 ## Support
 Join ```#maubot:sergevictor.eu``` room.
 
